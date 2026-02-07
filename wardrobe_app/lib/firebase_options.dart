@@ -14,19 +14,10 @@ import 'package:flutter/foundation.dart'
 ///   options: DefaultFirebaseOptions.currentPlatform,
 /// );
 /// ```
-/// 
-/// NOTE: This is a placeholder file. You need to configure your own Firebase project
-/// and generate the actual firebase_options.dart using:
-/// ```
-/// flutterfire configure
-/// ```
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -34,10 +25,8 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macOS - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        // Reuse iOS configuration for macOS
+        return ios;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -55,22 +44,29 @@ class DefaultFirebaseOptions {
     }
   }
 
-  // TODO: Replace these placeholders with your actual Firebase configuration
-  // Run: flutterfire configure
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyDEW7w-j0ase96af4d2gxH6cNsGCAQStQ0',
+    appId: '1:475367390723:web:2ec12909fb0958fb7d5836',
+    messagingSenderId: '475367390723',
+    projectId: 'personal-wardrobe-mgr-hza',
+    authDomain: 'personal-wardrobe-mgr-hza.firebaseapp.com',
+    storageBucket: 'personal-wardrobe-mgr-hza.firebasestorage.app',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'YOUR-API-KEY',
-    appId: 'YOUR-APP-ID',
-    messagingSenderId: 'YOUR-SENDER-ID',
-    projectId: 'YOUR-PROJECT-ID',
-    storageBucket: 'YOUR-STORAGE-BUCKET',
+    apiKey: 'AIzaSyCXxeu6qzzkj2OOV12B9GSZYrKGwXpbT4A',
+    appId: '1:475367390723:android:0a4d44c1417e04ad7d5836',
+    messagingSenderId: '475367390723',
+    projectId: 'personal-wardrobe-mgr-hza',
+    storageBucket: 'personal-wardrobe-mgr-hza.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'YOUR-API-KEY',
-    appId: 'YOUR-APP-ID',
-    messagingSenderId: 'YOUR-SENDER-ID',
-    projectId: 'YOUR-PROJECT-ID',
-    storageBucket: 'YOUR-STORAGE-BUCKET',
+    apiKey: 'AIzaSyAvP2EfDwVJuZ710ZSvPWculTY5liYXRH0',
+    appId: '1:475367390723:ios:b68b76aa26c638657d5836',
+    messagingSenderId: '475367390723',
+    projectId: 'personal-wardrobe-mgr-hza',
+    storageBucket: 'personal-wardrobe-mgr-hza.firebasestorage.app',
     iosBundleId: 'com.example.wardrobeApp',
   );
 }

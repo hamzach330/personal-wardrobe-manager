@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Data &amp; Permissions Overview</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#6751a4",
+                        "on-primary": "#ffffff",
+                        "secondary-container": "#e8def8",
+                        "on-surface": "#1d1b20",
+                        "on-surface-variant": "#49454f",
+                        "outline": "#79747e",
+                        "background-light": "#ffffff",
+                        "background-dark": "#17161c",
+                        "surface-light": "#f7f6f7", // Slightly off-white for contrast elements
+                        "surface-dark": "#2b2930",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                    boxShadow: {
+                        'elevation-1': '0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased text-on-surface dark:text-white overflow-x-hidden">
+<div class="relative flex h-screen w-full flex-col justify-between max-w-md mx-auto bg-background-light dark:bg-background-dark">
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col px-6 pt-12 pb-6 overflow-y-auto no-scrollbar">
+<!-- Header Section -->
+<div class="mb-8">
+<!-- Optional Back Button or Status Bar spacing could go here -->
+<h1 class="text-on-surface dark:text-white text-[32px] font-bold leading-[1.2] tracking-tight mb-2">
+                    What we'll need to personalize your agent
+                </h1>
+<p class="text-on-surface-variant dark:text-gray-400 text-base font-normal leading-relaxed">
+                    Customize your style assistant by granting access to the following data points.
+                </p>
+</div>
+<!-- Permission Cards Stack -->
+<div class="flex flex-col gap-4">
+<!-- Card 1: Measurements -->
+<div class="group flex items-center justify-between p-4 rounded-2xl bg-surface-light dark:bg-surface-dark border border-transparent dark:border-gray-700">
+<div class="flex items-start gap-4">
+<div class="flex items-center justify-center rounded-xl bg-secondary-container/50 dark:bg-primary/20 shrink-0 h-12 w-12 text-primary dark:text-white">
+<span class="material-symbols-outlined text-[24px]">straighten</span>
+</div>
+<div class="flex flex-col pr-2">
+<h3 class="text-on-surface dark:text-white text-base font-semibold mb-0.5">Measurements</h3>
+<p class="text-on-surface-variant dark:text-gray-400 text-sm leading-snug">
+                                Your body measurements for perfect fit recommendations
+                            </p>
+</div>
+</div>
+<div class="shrink-0 pl-2">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-[52px] h-[32px] bg-gray-300 peer-focus:outline-none rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:start-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+<!-- Card 2: Wardrobe Photos -->
+<div class="group flex items-center justify-between p-4 rounded-2xl bg-surface-light dark:bg-surface-dark border border-transparent dark:border-gray-700">
+<div class="flex items-start gap-4">
+<div class="flex items-center justify-center rounded-xl bg-secondary-container/50 dark:bg-primary/20 shrink-0 h-12 w-12 text-primary dark:text-white">
+<span class="material-symbols-outlined text-[24px]">checkroom</span>
+</div>
+<div class="flex flex-col pr-2">
+<h3 class="text-on-surface dark:text-white text-base font-semibold mb-0.5">Wardrobe Photos</h3>
+<p class="text-on-surface-variant dark:text-gray-400 text-sm leading-snug">
+                                Photos of your clothes to build your digital closet
+                            </p>
+</div>
+</div>
+<div class="shrink-0 pl-2">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-[52px] h-[32px] bg-gray-300 peer-focus:outline-none rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:start-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+<!-- Card 3: Location & Weather -->
+<div class="group flex items-center justify-between p-4 rounded-2xl bg-surface-light dark:bg-surface-dark border border-transparent dark:border-gray-700">
+<div class="flex items-start gap-4">
+<div class="flex items-center justify-center rounded-xl bg-secondary-container/50 dark:bg-primary/20 shrink-0 h-12 w-12 text-primary dark:text-white">
+<span class="material-symbols-outlined text-[24px]">location_on</span>
+</div>
+<div class="flex flex-col pr-2">
+<h3 class="text-on-surface dark:text-white text-base font-semibold mb-0.5">Location &amp; Weather</h3>
+<p class="text-on-surface-variant dark:text-gray-400 text-sm leading-snug">
+                                Your location for weather-appropriate outfit suggestions
+                            </p>
+</div>
+</div>
+<div class="shrink-0 pl-2">
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-[52px] h-[32px] bg-gray-300 peer-focus:outline-none rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:start-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky Footer -->
+<div class="w-full px-6 py-6 bg-background-light dark:bg-background-dark/95 backdrop-blur-sm z-10 border-t border-transparent dark:border-gray-800">
+<button class="w-full flex items-center justify-center h-12 rounded-full bg-primary hover:bg-primary/90 active:bg-primary/80 transition-colors text-white text-base font-semibold tracking-wide shadow-md hover:shadow-lg mb-4">
+                Continue
+            </button>
+<div class="flex justify-center">
+<button class="text-primary hover:text-primary/80 text-sm font-medium flex items-center gap-1 group">
+<span class="material-symbols-outlined text-[18px] group-hover:scale-110 transition-transform">info</span>
+                    Why we ask for this
+                </button>
+</div>
+</div>
+</div>
+</body></html>
