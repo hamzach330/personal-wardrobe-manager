@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../app/router.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/strings.dart';
-import '../../../shared/providers/auth_provider.dart';
+import '../presentation/providers/auth_providers.dart';
 import '../../../shared/widgets/primary_button.dart';
 
 /// Profile confirmation screen after social auth
@@ -14,10 +14,10 @@ class ProfileConfirmScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(currentUserProvider);
-    final name = user?.displayName ?? 'User';
+    final user = ref.watch(currentUserEntityProvider);
+    final name = user?.name ?? 'User';
     final email = user?.email ?? '';
-    final photoUrl = user?.photoURL;
+    final photoUrl = user?.photoUrl;
 
     return Scaffold(
       body: SafeArea(
@@ -48,17 +48,15 @@ class ProfileConfirmScreen extends ConsumerWidget {
                 height: 120,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(
-                    color: AppColors.primary,
-                    width: 3,
-                  ),
+                  border: Border.all(color: AppColors.primary, width: 3),
                 ),
                 child: ClipOval(
                   child: photoUrl != null
                       ? Image.network(
                           photoUrl,
                           fit: BoxFit.cover,
-                          errorBuilder: (_, __, ___) => _buildPlaceholderAvatar(name),
+                          errorBuilder: (_, _, _) =>
+                              _buildPlaceholderAvatar(name),
                         )
                       : _buildPlaceholderAvatar(name),
                 ),
@@ -68,24 +66,24 @@ class ProfileConfirmScreen extends ConsumerWidget {
               Text(
                 '${AppStrings.welcomeUser}$name!',
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.w700,
-                    ),
+                  fontWeight: FontWeight.w700,
+                ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 8),
               Text(
                 email,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: AppColors.textSecondary,
-                    ),
+                  color: AppColors.textSecondary,
+                ),
               ),
               const SizedBox(height: 32),
               // Is this you?
               Text(
                 AppStrings.isThisYou,
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: AppColors.textSecondary,
-                    ),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyLarge?.copyWith(color: AppColors.textSecondary),
               ),
               const Spacer(),
               // Buttons
@@ -97,7 +95,7 @@ class ProfileConfirmScreen extends ConsumerWidget {
               SecondaryButton(
                 text: AppStrings.useDifferentAccount,
                 onPressed: () async {
-                  await ref.read(authStateNotifierProvider.notifier).signOut();
+                  await ref.read(authControllerProvider.notifier).signOut();
                   if (context.mounted) {
                     context.go(AppRoutes.signup);
                   }

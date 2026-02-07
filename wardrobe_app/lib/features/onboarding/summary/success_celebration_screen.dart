@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../app/router.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/strings.dart';
-import '../../../shared/providers/auth_provider.dart';
+import '../../auth/presentation/providers/auth_providers.dart';
 import '../../../shared/widgets/primary_button.dart';
 
 /// Success celebration screen after onboarding completion
@@ -36,10 +36,7 @@ class _SuccessCelebrationScreenState
       duration: const Duration(milliseconds: 800),
     );
     _scaleAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: Curves.elasticOut,
-      ),
+      CurvedAnimation(parent: _animationController, curve: Curves.elasticOut),
     );
 
     // Start animations
@@ -56,9 +53,9 @@ class _SuccessCelebrationScreenState
 
   @override
   Widget build(BuildContext context) {
-    final user = ref.watch(currentUserProvider);
-    final name = user?.displayName ?? 'there';
-    final photoUrl = user?.photoURL;
+    final user = ref.watch(currentUserEntityProvider);
+    final name = user?.name ?? 'there';
+    final photoUrl = user?.photoUrl;
 
     return Scaffold(
       body: Stack(
@@ -114,16 +111,16 @@ class _SuccessCelebrationScreenState
                   Text(
                     AppStrings.youreAllSet,
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
+                      fontWeight: FontWeight.w700,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 12),
                   Text(
                     AppStrings.agentReady,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: AppColors.textSecondary,
-                        ),
+                      color: AppColors.textSecondary,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 32),
@@ -134,16 +131,14 @@ class _SuccessCelebrationScreenState
                       height: 80,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        border: Border.all(
-                          color: AppColors.primary,
-                          width: 3,
-                        ),
+                        border: Border.all(color: AppColors.primary, width: 3),
                       ),
                       child: ClipOval(
                         child: Image.network(
                           photoUrl,
                           fit: BoxFit.cover,
-                          errorBuilder: (_, __, ___) => _buildAvatarPlaceholder(name),
+                          errorBuilder: (_, _, _) =>
+                              _buildAvatarPlaceholder(name),
                         ),
                       ),
                     )
@@ -154,10 +149,7 @@ class _SuccessCelebrationScreenState
                       decoration: BoxDecoration(
                         color: AppColors.primaryLight,
                         shape: BoxShape.circle,
-                        border: Border.all(
-                          color: AppColors.primary,
-                          width: 3,
-                        ),
+                        border: Border.all(color: AppColors.primary, width: 3),
                       ),
                       child: _buildAvatarPlaceholder(name),
                     ),
@@ -175,9 +167,9 @@ class _SuccessCelebrationScreenState
                     child: Text(
                       '${AppStrings.readyToStyle} 0 ${AppStrings.items}',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: AppColors.primary,
-                            fontWeight: FontWeight.w600,
-                          ),
+                        color: AppColors.primary,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                   const Spacer(),
@@ -191,8 +183,8 @@ class _SuccessCelebrationScreenState
                   Text(
                     AppStrings.firstOutfitNote,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: AppColors.textTertiary,
-                        ),
+                      color: AppColors.textTertiary,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 ],

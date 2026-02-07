@@ -125,7 +125,7 @@ class _AiTaggingScreenState extends State<AiTaggingScreen>
                           ? Image.file(
                               File(widget.imagePath),
                               fit: BoxFit.cover,
-                              errorBuilder: (_, __, ___) =>
+                              errorBuilder: (_, _, _) =>
                                   _buildPlaceholder(),
                             )
                           : _buildPlaceholder(),

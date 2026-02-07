@@ -114,7 +114,7 @@ class _TagEditingScreenState extends State<TagEditingScreen> {
                               ? Image.file(
                                   File(widget.imagePath),
                                   fit: BoxFit.cover,
-                                  errorBuilder: (_, __, ___) => _buildPlaceholder(),
+                                  errorBuilder: (_, _, _) => _buildPlaceholder(),
                                 )
                               : _buildPlaceholder(),
                         ),

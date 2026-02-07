@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../app/router.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/strings.dart';
-import '../../../shared/providers/auth_provider.dart';
+import '../presentation/providers/auth_providers.dart';
 import '../../../shared/widgets/primary_button.dart';
 
 /// Email sign up form screen
@@ -42,7 +42,9 @@ class _EmailSignupScreenState extends ConsumerState<EmailSignupScreen> {
     setState(() => _isLoading = true);
 
     try {
-      await ref.read(authStateNotifierProvider.notifier).signUpWithEmail(
+      await ref
+          .read(authControllerProvider.notifier)
+          .signUpWithEmail(
             email: _emailController.text.trim(),
             password: _passwordController.text,
             name: _nameController.text.trim(),
@@ -182,8 +184,10 @@ class _EmailSignupScreenState extends ConsumerState<EmailSignupScreen> {
                             : Icons.visibility_off_outlined,
                       ),
                       onPressed: () {
-                        setState(() =>
-                            _obscureConfirmPassword = !_obscureConfirmPassword);
+                        setState(
+                          () => _obscureConfirmPassword =
+                              !_obscureConfirmPassword,
+                        );
                       },
                     ),
                   ),
@@ -213,9 +217,9 @@ class _EmailSignupScreenState extends ConsumerState<EmailSignupScreen> {
                       child: Text(
                         AppStrings.signIn,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: AppColors.primary,
-                              fontWeight: FontWeight.w600,
-                            ),
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ],

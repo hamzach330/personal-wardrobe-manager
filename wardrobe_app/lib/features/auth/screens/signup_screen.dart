@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../app/router.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/strings.dart';
-import '../../../shared/providers/auth_provider.dart';
+import '../presentation/providers/auth_providers.dart';
 import '../../../shared/widgets/primary_button.dart';
 import '../../../shared/widgets/social_button.dart';
 
@@ -29,7 +29,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
 
     try {
       context.push(AppRoutes.signupLoading, extra: 'google');
-      await ref.read(authStateNotifierProvider.notifier).signInWithGoogle();
+      await ref.read(authControllerProvider.notifier).signInWithGoogle();
       if (mounted) {
         context.go(AppRoutes.profileConfirm);
       }
@@ -49,65 +49,18 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
   }
 
   Future<void> _signInWithFacebook() async {
-    setState(() {
-      _isLoading = true;
-      _loadingProvider = 'facebook';
-    });
-
-    try {
-      context.push(AppRoutes.signupLoading, extra: 'facebook');
-      await ref.read(authStateNotifierProvider.notifier).signInWithFacebook();
-      if (mounted) {
-        context.go(AppRoutes.profileConfirm);
-      }
-    } catch (e) {
-      if (mounted) {
-        context.pop();
-        _showError(e.toString());
-      }
-    } finally {
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-          _loadingProvider = null;
-        });
-      }
-    }
+    // Not implemented yet in clean architecture, placeholder
+    _showError("Facebook sign in not implemented yet");
   }
 
   Future<void> _signInWithApple() async {
-    setState(() {
-      _isLoading = true;
-      _loadingProvider = 'apple';
-    });
-
-    try {
-      context.push(AppRoutes.signupLoading, extra: 'apple');
-      await ref.read(authStateNotifierProvider.notifier).signInWithApple();
-      if (mounted) {
-        context.go(AppRoutes.profileConfirm);
-      }
-    } catch (e) {
-      if (mounted) {
-        context.pop();
-        _showError(e.toString());
-      }
-    } finally {
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-          _loadingProvider = null;
-        });
-      }
-    }
+    // Not implemented yet in clean architecture, placeholder
+    _showError("Apple sign in not implemented yet");
   }
 
   void _showError(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: AppColors.error,
-      ),
+      SnackBar(content: Text(message), backgroundColor: AppColors.error),
     );
   }
 
@@ -131,8 +84,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
               Text(
                 AppStrings.createAccount,
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.w700,
-                    ),
+                  fontWeight: FontWeight.w700,
+                ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 12),
@@ -140,8 +93,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
               Text(
                 AppStrings.signUpSubtitle,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: AppColors.textSecondary,
-                    ),
+                  color: AppColors.textSecondary,
+                ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 40),
@@ -170,32 +123,38 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
               // Divider
               Row(
                 children: [
-                  const Expanded(child: Divider(color: AppColors.outlineVariant)),
+                  const Expanded(
+                    child: Divider(color: AppColors.outlineVariant),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Text(
                       AppStrings.orDivider,
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: AppColors.textTertiary,
-                          ),
+                        color: AppColors.textTertiary,
+                      ),
                     ),
                   ),
-                  const Expanded(child: Divider(color: AppColors.outlineVariant)),
+                  const Expanded(
+                    child: Divider(color: AppColors.outlineVariant),
+                  ),
                 ],
               ),
               const SizedBox(height: 24),
               // Email option
               SecondaryButton(
                 text: AppStrings.signUpWithEmail,
-                onPressed: _isLoading ? null : () => context.push(AppRoutes.emailSignup),
+                onPressed: _isLoading
+                    ? null
+                    : () => context.push(AppRoutes.emailSignup),
               ),
               const SizedBox(height: 24),
               // Privacy note
               Text(
                 AppStrings.privacyNote,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: AppColors.textTertiary,
-                    ),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodySmall?.copyWith(color: AppColors.textTertiary),
                 textAlign: TextAlign.center,
               ),
               const Spacer(),
@@ -214,9 +173,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                     child: Text(
                       AppStrings.signIn,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: AppColors.primary,
-                            fontWeight: FontWeight.w600,
-                          ),
+                        color: AppColors.primary,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ],

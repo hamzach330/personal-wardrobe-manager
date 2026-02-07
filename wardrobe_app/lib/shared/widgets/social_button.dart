@@ -91,7 +91,7 @@ class SocialButton extends StatelessWidget {
           'https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg',
           width: 24,
           height: 24,
-          errorBuilder: (_, __, ___) => const Icon(
+          errorBuilder: (_, _, _) => const Icon(
             Icons.g_mobiledata,
             size: 24,
             color: AppColors.googleRed,

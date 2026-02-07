@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../app/router.dart';
 import '../../core/constants/colors.dart';
 import '../../core/constants/strings.dart';
-import '../../shared/providers/auth_provider.dart';
+import '../auth/presentation/providers/auth_providers.dart';
 
 /// Home dashboard screen
 class HomeScreen extends ConsumerStatefulWidget {
@@ -27,8 +27,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final user = ref.watch(currentUserProvider);
-    final name = user?.displayName?.split(' ').first ?? 'there';
+    final user = ref.watch(currentUserEntityProvider);
+    final userName = user?.name;
+    final name = (userName != null && userName.isNotEmpty)
+        ? userName.split(' ').first
+        : 'there';
 
     return Scaffold(
       body: SafeArea(
@@ -46,10 +49,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       children: [
                         Text(
                           '${_getGreeting()}, $name!',
-                          style:
-                              Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                          style: Theme.of(context).textTheme.headlineSmall
+                              ?.copyWith(fontWeight: FontWeight.w700),
                         ),
                         const SizedBox(height: 4),
                         // Weather badge
@@ -73,12 +74,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                               const SizedBox(width: 6),
                               Text(
                                 '72°F • Sunny',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall
-                                    ?.copyWith(
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                style: Theme.of(context).textTheme.bodySmall
+                                    ?.copyWith(fontWeight: FontWeight.w500),
                               ),
                             ],
                           ),
@@ -96,17 +93,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       height: 48,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        border: Border.all(
-                          color: AppColors.primary,
-                          width: 2,
-                        ),
+                        border: Border.all(color: AppColors.primary, width: 2),
                       ),
                       child: ClipOval(
-                        child: user?.photoURL != null
+                        child: user?.photoUrl != null
                             ? Image.network(
-                                user!.photoURL!,
+                                user!.photoUrl!,
                                 fit: BoxFit.cover,
-                                errorBuilder: (_, __, ___) =>
+                                errorBuilder: (_, _, _) =>
                                     _buildAvatarPlaceholder(name),
                               )
                             : _buildAvatarPlaceholder(name),
@@ -139,10 +133,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         icon: const Icon(Icons.add, color: Colors.white),
         label: const Text(
           AppStrings.addItem,
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w600,
-          ),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
         ),
       ),
       // Bottom Navigation
@@ -206,10 +197,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            AppColors.primary,
-            AppColors.primary.withValues(alpha: 0.8),
-          ],
+          colors: [AppColors.primary, AppColors.primary.withValues(alpha: 0.8)],
         ),
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
@@ -225,18 +213,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         children: [
           Row(
             children: [
-              const Icon(
-                Icons.auto_awesome,
-                color: Colors.white,
-                size: 20,
-              ),
+              const Icon(Icons.auto_awesome, color: Colors.white, size: 20),
               const SizedBox(width: 8),
               Text(
                 AppStrings.todaysOutfit,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                    ),
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ],
           ),
@@ -339,15 +323,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             const SizedBox(height: 8),
             Text(
               value,
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    fontWeight: FontWeight.w700,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),
             ),
             Text(
               label,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: AppColors.textSecondary,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.bodySmall?.copyWith(color: AppColors.textSecondary),
             ),
           ],
         ),
@@ -364,9 +348,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           children: [
             Text(
               AppStrings.yourWardrobe,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
             ),
             TextButton(
               onPressed: () {
@@ -406,18 +390,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           color: AppColors.primary,
                           shape: BoxShape.circle,
                         ),
-                        child: const Icon(
-                          Icons.add,
-                          color: Colors.white,
-                        ),
+                        child: const Icon(Icons.add, color: Colors.white),
                       ),
                       const SizedBox(height: 8),
                       Text(
                         'Add item',
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: AppColors.primary,
-                              fontWeight: FontWeight.w600,
-                            ),
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ],
                   ),
@@ -434,8 +415,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   child: Text(
                     'Your items will appear here',
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: AppColors.textSecondary,
-                        ),
+                      color: AppColors.textSecondary,
+                    ),
                   ),
                 ),
               ),
@@ -476,9 +457,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               const SizedBox(width: 12),
               Text(
                 AppStrings.styleTips,
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
               ),
             ],
           ),
@@ -486,9 +467,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           Text(
             'Add more items to your wardrobe to unlock personalized style tips and outfit recommendations!',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: AppColors.textSecondary,
-                  height: 1.5,
-                ),
+              color: AppColors.textSecondary,
+              height: 1.5,
+            ),
           ),
         ],
       ),

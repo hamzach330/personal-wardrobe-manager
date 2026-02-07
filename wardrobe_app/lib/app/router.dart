@@ -28,7 +28,7 @@ import '../features/onboarding/summary/privacy_policy_screen.dart';
 import '../features/onboarding/summary/review_setup_screen.dart';
 import '../features/onboarding/summary/success_celebration_screen.dart';
 import '../features/home/home_screen.dart';
-import '../shared/providers/auth_provider.dart';
+import '../features/auth/presentation/providers/auth_providers.dart';
 
 /// Route paths
 class AppRoutes {
@@ -52,7 +52,8 @@ class AppRoutes {
   static const String manualEntry = '/onboarding/measurements/manual';
   static const String importMeasurements = '/onboarding/measurements/import';
   static const String cameraMeasure = '/onboarding/measurements/camera';
-  static const String measurementProcessing = '/onboarding/measurements/processing';
+  static const String measurementProcessing =
+      '/onboarding/measurements/processing';
   static const String measurementsSaved = '/onboarding/measurements/saved';
 
   // Onboarding - Wardrobe Intake
@@ -79,7 +80,7 @@ class AppRoutes {
 
 /// Router provider
 final routerProvider = Provider<GoRouter>((ref) {
-  ref.watch(authStateProvider);
+  ref.watch(authStateChangesProvider);
 
   return GoRouter(
     initialLocation: AppRoutes.splash,
@@ -106,9 +107,8 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: AppRoutes.signupLoading,
-        builder: (context, state) => SignupLoadingScreen(
-          provider: state.extra as String?,
-        ),
+        builder: (context, state) =>
+            SignupLoadingScreen(provider: state.extra as String?),
       ),
       GoRoute(
         path: AppRoutes.emailSignup,
@@ -144,9 +144,8 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: AppRoutes.measurementProcessing,
-        builder: (context, state) => MeasurementProcessingScreen(
-          imagePath: state.extra as String?,
-        ),
+        builder: (context, state) =>
+            MeasurementProcessingScreen(imagePath: state.extra as String?),
       ),
       GoRoute(
         path: AppRoutes.measurementsSaved,
@@ -168,15 +167,17 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: AppRoutes.aiTagging,
-        builder: (context, state) => AiTaggingScreen(
-          imagePath: state.extra as String,
-        ),
+        builder: (context, state) =>
+            AiTaggingScreen(imagePath: state.extra as String),
       ),
       GoRoute(
         path: AppRoutes.tagEditing,
         builder: (context, state) => TagEditingScreen(
-          imagePath: (state.extra as Map<String, dynamic>)['imagePath'] as String,
-          detectedTags: (state.extra as Map<String, dynamic>)['tags'] as Map<String, dynamic>?,
+          imagePath:
+              (state.extra as Map<String, dynamic>)['imagePath'] as String,
+          detectedTags:
+              (state.extra as Map<String, dynamic>)['tags']
+                  as Map<String, dynamic>?,
         ),
       ),
       GoRoute(
@@ -218,10 +219,7 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const HomeScreen(),
       ),
     ],
-    errorBuilder: (context, state) => Scaffold(
-      body: Center(
-        child: Text('Error: ${state.error}'),
-      ),
-    ),
+    errorBuilder: (context, state) =>
+        Scaffold(body: Center(child: Text('Error: ${state.error}'))),
   );
 });

@@ -47,4 +47,4 @@ app.*.map.json
 # FVM (Flutter Version Management)
 # .fvm/ contains SDK symlinks and cache (auto-generated)
 # .fvmrc at project root is tracked (contains version config for team)
-.fvm/
+.fvm/lib/firebase_options.dart

@@ -206,7 +206,7 @@ class _GalleryPickerScreenState extends State<GalleryPickerScreen> {
             // Using placeholder since we can't show actual picked images in preview
             'assets/images/placeholder.png',
             fit: BoxFit.cover,
-            errorBuilder: (_, __, ___) => Container(
+            errorBuilder: (_, _, _) => Container(
               color: AppColors.surfaceVariant,
               child: const Icon(
                 Icons.image,
